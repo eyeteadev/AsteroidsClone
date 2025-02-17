@@ -32,7 +32,7 @@ public class Panel extends JPanel implements Runnable{
 		km = new KeyManager();
 		asteroidManager = new AsteroidManager(this);
 		
-		cube = new Cube(km);
+		cube = new Cube(km,mh);
 		//asteroid = new Asteroid();
 		counter = new LifeCounter(cube);
 		bs = new BulletSpawner(mh,cube);
@@ -41,6 +41,7 @@ public class Panel extends JPanel implements Runnable{
 		this.setBackground(Color.black);
 		this.addKeyListener(km);
 		this.addMouseListener(mh);
+		this.addMouseMotionListener(mh);
 		this.setLayout(null);
 		this.add(counter);
 		
@@ -96,6 +97,7 @@ public class Panel extends JPanel implements Runnable{
 		}
 	}
 	
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		

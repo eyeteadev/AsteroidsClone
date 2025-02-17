@@ -37,20 +37,25 @@ public class AsteroidManager {
 			if((bullet.x <= asteroids.get(i).x + Asteroid.asteroidWidth && bullet.x >= asteroids.get(i).x) && (bullet.y <= asteroids.get(i).y + Asteroid.asteroidHeight && bullet.y >= asteroids.get(i).y)) {
 				asteroids.get(i).toDraw = false;
 				
-				return true;
+				toRet = true;
 			}
 		}
 		return toRet;
 	}
 	
+	
 	public void checkCollision(Cube cube) {
+		boolean isColliding = false;
 		
 		for(int i = 0; i < asteroids.size(); i++) {
-			if((cube.x <= asteroids.get(i).x + Asteroid.asteroidWidth && cube.x >= asteroids.get(i).x) && (cube.y <= asteroids.get(i).y + Asteroid.asteroidHeight && cube.y >= asteroids.get(i).y)) {
-				if(cube.immunity <= 0) {
-					cube.lives--;
-					cube.immunity = 180;
-				}
+			isColliding = (cube.x < asteroids.get(i).x + Asteroid.asteroidWidth && 
+                    cube.x + cube.cubeWidth > asteroids.get(i).x &&
+                    cube.y < asteroids.get(i).y  + Asteroid.asteroidHeight &&
+                    cube.y + cube.cubeHeight > asteroids.get(i).y );
+			
+			if(cube.immunity <= 0 && isColliding) {
+				cube.lives--;
+				cube.immunity = 180;
 			}
 		}
 	}

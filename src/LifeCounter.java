@@ -12,7 +12,7 @@ public class LifeCounter extends JLabel{
 	
 	LifeCounter(Cube cube){
 		this.scoreDisplay = cube.score;
-		this.setBounds(10,10,50,20);
+		this.setBounds(15,15,60,30);
 		this.livesDisplay = cube.lives;
 		this.setFont(new Font("Consolas", Font.BOLD, 25));
 		this.setText("Lives: " + this.livesDisplay);
