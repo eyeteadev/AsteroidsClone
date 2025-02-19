@@ -36,8 +36,7 @@ public class Cube {
 		
 		angleToMouse = calculateAngle((int)x + cubeWidth / 2,(int) y + cubeHeight / 2,mx,my);
 
-		if(km.leftPress == true) {
-			//x -= 2;
+		if(km.leftPress == true) { 
 			velX = velX - acceleration;
 		}else{
 			velX = velX * friction;
@@ -45,20 +44,18 @@ public class Cube {
 		
 		if(km.rightPress == true) {
 		
-			//x += 2;
+
 			velX = velX + acceleration;
 		}else {
 			
 		}
 		if(km.upPress == true) {
-			//y -= 2;
 			velY = velY - acceleration;
 			
 		}else {
 			velY = velY * friction;
 		}
 		if(km.downPress == true) {
-			//y += 2;
 			velY = velY + acceleration;
 		}else {
 			velY = velY * friction;
@@ -107,14 +104,11 @@ public class Cube {
 	
 	public void draw(Graphics2D g2) {
 		AffineTransform originalTransform = g2.getTransform();
-		//g2.setBackground(Color.BLACK);
 		g2.setColor(Color.blue);
-		//g2.drawRect((int)x, (int)y,cubeWidth, cubeHeight);
 		g2.rotate(-angleToMouse,x + cubeWidth/2,y + cubeHeight/2);
-		g2.drawRect((int)x , (int)y, cubeWidth, cubeHeight);
-		//System.out.println("being drawn");
+		g2.fillRect((int)x , (int)y, cubeWidth, cubeHeight); //changed from drawRect to have a full cube
 		g2.rotate(+angleToMouse,x + cubeWidth/2,y + cubeHeight/2);
-		//g2.dispose();
+
 		g2.setTransform(originalTransform);
 	}
 }

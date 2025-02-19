@@ -7,15 +7,17 @@ public class AsteroidManager {
 	Bullet bullet;
 	Panel panel;
 	int spawnAmount;
+	Cube cube;
 	
-	AsteroidManager(Panel panel){
+	AsteroidManager(Panel panel, Cube cube){
 		this.spawnAmount = 5;
 		this.panel = panel;
+		this.cube = cube;
 	}
 	
 	public void spawnAsteroids() {
 		for(int i = 0; i < spawnAmount; i++) {
-			Asteroid asteroid = new Asteroid();
+			Asteroid asteroid = new Asteroid(cube);
 			asteroids.add(asteroid);
 		}
 		

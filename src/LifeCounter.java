@@ -8,6 +8,7 @@ public class LifeCounter extends JLabel{
 	int livesDisplay;
 	int scoreDisplay;
 	String score = "Score: 0";
+	boolean over = false;
 	
 	
 	LifeCounter(Cube cube){
@@ -36,6 +37,13 @@ public class LifeCounter extends JLabel{
 		g2.drawString(score, Panel.frameWidth-175,30);
 		g2.setColor(Color.blue);
 		
+		if(over == true) {
+			g2.setFont(new Font("Consolas", Font.BOLD, 50));
+			g2.setColor(Color.WHITE);
+			g2.drawString("Game Over", Panel.frameWidth/2 - 125,Panel.frameHeight / 2);
+			g2.setFont(new Font("Consolas", Font.BOLD, 25));
+			g2.drawString(score, Panel.frameWidth/2 - 125,Panel.frameHeight / 2 + 50); // add 50 because its the font size
+		}
 		
 		
 	}

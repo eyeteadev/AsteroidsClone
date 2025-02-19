@@ -14,9 +14,9 @@ public class Frame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLayout(null);
+		this.setTitle("Asteroid Clone");
 		
 		this.add(panel);
-		//this.pack();
 		this.setVisible(true);
 		
 		panel.startGameThread();

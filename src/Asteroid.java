@@ -16,9 +16,11 @@ public class Asteroid {
 	double randtoX, randtoY;
 	static int asteroidWidth, asteroidHeight;
 	boolean toDraw;
+	Cube cube;
 	
-	Asteroid(){
+	Asteroid(Cube cube){
 		toDraw = true;
+		this.cube = cube;
 		boxX = 30;
 		boxY = 30;
 		asteroidWidth = 40;
@@ -28,17 +30,32 @@ public class Asteroid {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		random = new Random();
-		randX = random.nextDouble() * Panel.frameWidth;
-		randY = random.nextDouble() * Panel.frameHeight;		
-		randtoX = random.nextDouble() * Panel.frameWidth;
-		randtoY = random.nextDouble() * Panel.frameHeight;	
+		
+		setSpawn();
 		
 		x = randtoX;
 		y = randtoY;
 		
 		calcTrajectory();
 		
+	}
+	
+	public void setSpawn() {
+		random = new Random();
+		randX = random.nextDouble() * Panel.frameWidth;
+		randY = random.nextDouble() * Panel.frameHeight;		
+		randtoX = random.nextDouble() * Panel.frameWidth;
+		randtoY = random.nextDouble() * Panel.frameHeight;	
+		
+		boolean isColliding = (cube.x < x + Asteroid.asteroidWidth && 
+                cube.x + cube.cubeWidth > x &&
+                cube.y < y  + Asteroid.asteroidHeight &&
+                cube.y + cube.cubeHeight > y );
+		
+		while(isColliding){
+			randX = random.nextDouble() * Panel.frameWidth;
+			randY = random.nextDouble() * Panel.frameHeight;
+		}
 	}
 	
 	public void calcTrajectory() {

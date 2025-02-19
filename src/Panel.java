@@ -30,10 +30,9 @@ public class Panel extends JPanel implements Runnable{
 		this.setSize(frameWidth,frameHeight);
 		mh = new MouseHandler();
 		km = new KeyManager();
-		asteroidManager = new AsteroidManager(this);
-		
 		cube = new Cube(km,mh);
-		//asteroid = new Asteroid();
+		asteroidManager = new AsteroidManager(this,cube);
+		
 		counter = new LifeCounter(cube);
 		bs = new BulletSpawner(mh,cube);
 		this.setPreferredSize(new Dimension(frameWidth,frameHeight));
@@ -67,12 +66,10 @@ public class Panel extends JPanel implements Runnable{
 		}
 		
 		if(cube.lives <= 0) {
-			
-			
-			gameThread = null;
+			counter.over = true;
 		}
+		
 		counter.update(cube);
-		//System.out.println(asteroidManager.asteroids.size());
 	}
 	
 	
@@ -113,49 +110,53 @@ public class Panel extends JPanel implements Runnable{
 		}
 		
 		counter.draw(g2);
+		
 		g2.dispose();
 	}
 	
 	@Override
 	public void run() {
+		//everything commented out is for FPS counter.
 		
 		double interval = 1_000_000_000 / FPS;
 		double delta = 0;
 		long currentTime;
 		long previousTime = System.nanoTime();
+		/*
 		long timer = 0;
 		int drawCount = 0;
+		*/
 		
 		while(gameThread != null) {
 			
 			currentTime = System.nanoTime();
 			delta += (currentTime - previousTime) / interval;
-			timer = timer + ( currentTime - previousTime);
-			previousTime = currentTime;
-			
 			//timer = timer + ( currentTime - previousTime);
-			
-			
-			//System.out.println(mh.mouseX + " " + mh.mouseY);
-		//	System.out.println(cube.lives);
-			//System.out.println(timer);
+			previousTime = currentTime;
 			
 			if(delta >= 1) {	
 				update();
 				repaint();
+				if(counter.over) {
+					gameThread = null;
+				}
 				delta--;
-				drawCount++;
-				//System.out.println(previousTime);
+				
+				//drawCount++;
+				
+				//this is what makes it so you can only have 1 bullet per click
 				if(mh.click == true) {
 					mh.click = false;
 				}
+
 			}
-			
+			/*
 			if(timer >= 1000000000) {
-				System.out.println("FPS: " + drawCount);
+				//System.out.println("FPS: " + drawCount); keep this here for the future.
 				drawCount = 0;
 				timer = 0;
 			}
+			*/
 		}
 	}
 }
